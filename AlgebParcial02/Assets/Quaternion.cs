@@ -464,12 +464,12 @@ public struct Quaternioncito : IEquatable<Quaternioncito>
 	{
 		return Quaternioncito.Dot(lhs, rhs) <= 0.999999f;
 	}
-	#region Implicit conversions to and from Unity's Quaternion
-	public static implicit operator UnityEngine.Quaternion(Quaternioncito me)
+	#region CastUnity.Quaternion to Quaternioncito
+	public static implicit operator Quaternion(Quaternioncito me)
 	{
-		return new UnityEngine.Quaternion((float)me.x, (float)me.y, (float)me.z, (float)me.w);
+		return new Quaternion((float)me.x, (float)me.y, (float)me.z, (float)me.w);
 	}
-	public static implicit operator Quaternioncito(UnityEngine.Quaternion other)
+	public static implicit operator Quaternioncito(Quaternion other)
 	{
 		return new Quaternioncito((float)other.x, (float)other.y, (float)other.z, (float)other.w);
 	}
