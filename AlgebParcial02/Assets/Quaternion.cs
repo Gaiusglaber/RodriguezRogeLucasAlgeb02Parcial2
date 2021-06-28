@@ -8,7 +8,7 @@ public struct Quaternioncito : IEquatable<Quaternioncito>
 	const float radToDeg = (float)(180.0 / Math.PI);
 	const float degToRad = (float)(Math.PI / 180.0);
 
-	public const float kEpsilon = 1E-06f; // should probably be used in the 0 tests in LookRotation or Slerp
+	public const float kEpsilon = 1E-06f;
 	public Vector3 xyz
 	{
 		set
@@ -339,28 +339,28 @@ public struct Quaternioncito : IEquatable<Quaternioncito>
 		float sqx = rotation.x * rotation.x;
 		float sqy = rotation.y * rotation.y;
 		float sqz = rotation.z * rotation.z;
-		float unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+		float unit = sqx + sqy + sqz + sqw;
 		float test = rotation.x * rotation.w - rotation.y * rotation.z;
 		Vector3 v;
 
 		if (test > 0.4995f * unit)
-		{ // singularity at north pole
+		{
 			v.y = 2f * Mathf.Atan2(rotation.y, rotation.x);
 			v.x = Mathf.PI / 2;
 			v.z = 0;
 			return NormalizeAngles(v * Mathf.Rad2Deg);
 		}
 		if (test < -0.4995f * unit)
-		{ // singularity at south pole
+		{
 			v.y = -2f * Mathf.Atan2(rotation.y, rotation.x);
 			v.x = -Mathf.PI / 2;
 			v.z = 0;
 			return NormalizeAngles(v * Mathf.Rad2Deg);
 		}
 		Quaternioncito q = new Quaternioncito(rotation.w, rotation.z, rotation.x, rotation.y);
-		v.y = (float)System.Math.Atan2(2f * q.x * q.w + 2f * q.y * q.z, 1 - 2f * (q.z * q.z + q.w * q.w));     // Yaw
-		v.x = (float)System.Math.Asin(2f * (q.x * q.z - q.w * q.y));                             // Pitch
-		v.z = (float)System.Math.Atan2(2f * q.x * q.y + 2f * q.z * q.w, 1 - 2f * (q.y * q.y + q.z * q.z));      // Roll
+		v.y = (float)System.Math.Atan2(2f * q.x * q.w + 2f * q.y * q.z, 1 - 2f * (q.z * q.z + q.w * q.w));
+		v.x = (float)System.Math.Asin(2f * (q.x * q.z - q.w * q.y));
+		v.z = (float)System.Math.Atan2(2f * q.x * q.y + 2f * q.z * q.w, 1 - 2f * (q.y * q.y + q.z * q.z));
 		return NormalizeAngles(v * Mathf.Rad2Deg);
 	}
 	private static Vector3 NormalizeAngles(Vector3 angles)

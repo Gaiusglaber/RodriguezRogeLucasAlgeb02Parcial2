@@ -15,11 +15,9 @@ public class Example : MonoBehaviour
         float cosAngleZ = Mathf.Cos(Mathf.Deg2Rad * angle.z * 0.5f);
         qz.Set(0, 0, sinAngleZ, cosAngleZ);
 
-
         float sinAngleX = Mathf.Sin(Mathf.Deg2Rad * angle.x * 0.5f);
         float cosAngleX = Mathf.Cos(Mathf.Deg2Rad * angle.x * 0.5f);
         qx.Set(sinAngleX,0,0,cosAngleX);
-
 
         float sinAngleY = Mathf.Sin(Mathf.Deg2Rad * angle.y * 0.5f);
         float cosAngleY = Mathf.Cos(Mathf.Deg2Rad * angle.y * 0.5f);
