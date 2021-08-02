@@ -71,7 +71,7 @@ public partial struct Matrixita4x4 : IEquatable<Matrixita4x4>
         {
             switch (index)
             {
-                case 0: 
+                case 0:
                     m00 = value;
                     break;
                 case 1:
@@ -291,6 +291,14 @@ public partial struct Matrixita4x4 : IEquatable<Matrixita4x4>
         m.m03 = 0.0F; m.m13 = 0.0F; m.m23 = 0.0F; m.m33 = 1.0F;
         return m;
     }
+    public static Matrixita4x4 TRS(Vector3 T, Quaternion R, Vector3 S)
+    {
+        Matrixita4x4 t = Translate(T);
+        Matrixita4x4 r = Rotate(R);
+        Matrixita4x4 s = Scale(S);
+        Matrixita4x4 trs = t * r * s;
+        return trs;
+    }
     static readonly Matrixita4x4 zeroMatrix = new Matrixita4x4(new Vector4(0, 0, 0, 0),
         new Vector4(0, 0, 0, 0),
         new Vector4(0, 0, 0, 0),
@@ -302,4 +310,9 @@ public partial struct Matrixita4x4 : IEquatable<Matrixita4x4>
         new Vector4(0, 0, 1, 0),
         new Vector4(0, 0, 0, 1));
     public static Matrixita4x4 identity { get { return identityMatrix; } }
+
+    public static implicit operator Matrix4x4(Matrixita4x4 m)
+    {
+        return new Matrix4x4(m.GetColumn(0), m.GetColumn(1), m.GetColumn(2), m.GetColumn(3));
+    }
 }
